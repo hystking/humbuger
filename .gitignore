@@ -1,0 +1,5 @@
+.bundle
+.vagrant
+/vendor/bundle
+/nodes
+*.id_rsa
