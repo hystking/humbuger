@@ -32,21 +32,21 @@
   },
 
   "apps": {
-    "hotdog": {
+    "hotdog-stg": {
       "nginx": {
-        "socket": "/var/www/hotdog/shared/tmp/sockets/unicorn.sock",
-        "public": "/var/www/hotdog/current/public",
+        "socket": "/var/www/hotdog-stg/shared/tmp/sockets/unicorn.sock",
+        "public": "/var/www/hotdog-stg/current/public",
         "domains": ["localhost"],
         "default_server": true
       },
       "god": {
-        "command": "cd /var/www/hotdog/current/; bundle exec unicorn_rails -c /var/www/hotdog/current/config/unicorn.rb -E production -D",
-        "pid_file": "/var/www/hotdog/shared/tmp/pids/unicorn.pid",
-        "log_file": "/var/www/hotdog/current/log/god.log"
+        "command": "cd /var/www/hotdog-stg/current/; bundle exec unicorn_rails -c /var/www/hotdog-stg/current/config/unicorn.rb -E staging -D",
+        "pid_file": "/var/www/hotdog-stg/shared/tmp/pids/unicorn.pid",
+        "log_file": "/var/www/hotdog-stg/current/log/god.log"
       },
       "deploy": {
         "path": "/home/app/hotdog-deploy",
-        "environment": "production"
+        "environment": "staging"
       }
     }
   },
