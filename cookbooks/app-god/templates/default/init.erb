@@ -1,0 +1,105 @@
+#!/bin/bash
+#
+# God
+#
+# chkconfig: - 99 1
+# description: start, stop, restart God (bet you feel powerful)
+#
+
+# source function library
+. /etc/rc.d/init.d/functions
+
+DAEMON=<%= @HOME_DIR %>/.rbenv/shims/god
+PID_FILE=/var/run/god.pid
+LOG_FILE=/var/log/god.log
+LOCK_FILE=/var/lock/subsys/god
+
+test -x $DAEMON || exit 0
+
+RETVAL=0
+
+god_start() {
+  cmd="$DAEMON -l $LOG_FILE -P $PID_FILE"
+  echo $cmd
+  $cmd || echo -en "god already running"
+  sleep 5
+  <% @APPS_GOD.each do |app_name, app| %>
+  echo "god: loading <%= app_name %> config"
+  $DAEMON load /etc/god/<%= app_name %>.conf
+  <% end %>
+  RETVAL=$?
+  
+  if [ "$RETVAL" == '0' ]; then
+    touch $LOCK_FILE
+  fi
+
+  return $RETVAL
+}
+
+god_terminate() {
+  cmd="$DAEMON terminate"
+  echo $cmd
+  $cmd
+  RETVAL=$?
+  
+  if [ "$RETVAL" == '0' ]; then
+    rm -f $LOCK_FILE
+  else
+    echo -en "god not running"
+    RETVAL=0
+  fi
+
+  return $RETVAL
+}
+
+god_stop() {
+  cmd="$DAEMON stop $1"
+  echo $cmd
+  $cmd
+}
+
+god_restart() {
+  cmd="$DAEMON restart $1"
+  echo $cmd
+  $cmd
+}
+
+god_status() {
+  cmd="$DAEMON status"
+  echo $cmd
+  $cmd
+}
+
+case "$1" in
+  start)
+    god_start
+    RETVAL=$?
+    ;;
+  stop)
+    if [ $# -eq 1 ] ; then
+      god_terminate
+    else
+      god_stop $2
+    fi
+    RETVAL=$?
+    ;;
+  restart)
+    if [ $# -eq 1 ] ; then
+      god_terminate
+      god_start
+    else
+      god_restart $2
+    fi
+    RETVAL=$?
+    ;;
+  status)
+    god_status
+    RETVAL=$?
+    ;;
+  *)
+    echo "Usage: god {start|stop|restart|status}"
+    exit 1
+    ;;
+esac
+
+exit $RETVAL

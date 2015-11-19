@@ -1,0 +1,8 @@
+<% @configs.each do |host, config| %>
+Host <%= host %>
+  User <%= config["user"] %>
+  HostName      <%= config["hostname"] %>
+  IdentityFile  ~/.ssh/<%= config["identity_file"] %>
+
+#----------------------------------------------------------
+<% end %>

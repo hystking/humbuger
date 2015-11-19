@@ -1,0 +1,4 @@
+rbenv Cookbook
+==============
+
+rbenvのインストールと、globalでつかうgemのインストール
