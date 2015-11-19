@@ -1,0 +1,74 @@
+{
+  "rbenv": {
+    "ruby_versions": ["2.2.3"],
+    "global": "2.2.3"
+  },
+
+  "ssh": {
+    "keys": [
+      "github.id_rsa"
+    ],
+    "configs": {
+      "github.com": {
+        "user": "git",
+        "hostname": "github.com",
+        "identity_file": "github.id_rsa"
+      },
+      "capistrano": {
+        "user": "app",
+        "hostname": "localhost",
+        "identity_file": "capistrano.id_rsa"
+      }
+    }
+  },
+
+  "deploys": {
+    "hotdog": {
+      "path": "/home/app/hotdog-deploy",
+      "identity_file": "github.id_rsa",
+      "repository": "git@github.com:hystking/hotdog-deploy",
+      "branch": "master"
+    }
+  },
+
+  "apps": {
+    "hotdog": {
+      "nginx": {
+        "socket": "/var/www/hotdog/shared/tmp/sockets/unicorn.sock",
+        "public": "/var/www/hotdog/current/public",
+        "domains": ["localhost"],
+        "default_server": true
+      },
+      "god": {
+        "command": "cd /var/www/hotdog/current/; bundle exec unicorn_rails -c /var/www/hotdog/current/config/unicorn.rb -E production -D",
+        "pid_file": "/var/www/hotdog/shared/tmp/pids/unicorn.pid",
+        "log_file": "/var/www/hotdog/current/log/god.log"
+      },
+      "deploy": {
+        "path": "/home/app/hotdog-deploy",
+        "environment": "production"
+      }
+    }
+  },
+
+  "run_list": [
+    "local-accounts",
+    "vagrant-environment",
+    "sysctl",
+    "mysql-server",
+    "nginx",
+    "git",
+    "rbenv",
+    "nodejs",
+    "ssh",
+    "deploy-clone",
+    "app-deploy",
+    "app-nginx",
+    "app-god",
+    "dev"
+  ],
+
+  "automatic": {
+    "ipaddress": "my-vagrant"
+  }
+}
