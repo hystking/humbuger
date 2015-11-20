@@ -14,6 +14,7 @@ package "nginx"
 service "nginx" do
   notifies :enable, "service[nginx]"
   notifies :start, "service[nginx]"
+  supports reload: true
 end
 
 template "/etc/nginx/nginx.conf" do
