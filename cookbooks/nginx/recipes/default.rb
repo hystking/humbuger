@@ -12,8 +12,7 @@ package "epel-release"
 package "nginx"
 
 service "nginx" do
-  notifies :enable, "service[nginx]"
-  notifies :start, "service[nginx]"
+  action [:enable, :start]
   supports reload: true
 end
 
