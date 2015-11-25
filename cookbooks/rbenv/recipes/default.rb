@@ -49,6 +49,14 @@ node[:rbenv][:ruby_versions].each do |ruby_version|
   end
 end
 
+# nokogiri 対策
+package "gcc"
+package "libxml2-devel"
+package "libxslt-devel"
+
+# mysql2 対策
+package "mysql-devel"
+
 # globalのrubyの設定
 
 directory "#{HOME_DIR}/tmp"

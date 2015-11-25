@@ -12,14 +12,6 @@ USER_NAME = node[:local_accounts][:app][:name]
 HOME_DIR = "/home/#{USER_NAME}"
 APPS_DEPLOY = node[:apps].select{|app_name, app| app.has_key? "deploy"}
 
-# nokogiri 対策
-package "gcc"
-package "libxml2-devel"
-package "libxslt-devel"
-
-# mysql2 対策
-package "mysql-devel"
-
 directory "/var/www" do
   owner USER_NAME
   mode "755"
