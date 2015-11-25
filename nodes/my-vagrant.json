@@ -59,7 +59,7 @@
     "nginx",
     "git",
     "rbenv",
-    "nodejs",
+    "n",
     "ssh",
     "deploy-clone",
     "app-deploy",
