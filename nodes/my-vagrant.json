@@ -1,12 +1,13 @@
 {
   "rbenv": {
-    "ruby_versions": ["2.2.3"],
+    "ruby_versions": ["2.2.3", "2.0.0-p481"],
     "global": "2.2.3"
   },
 
   "ssh": {
     "keys": [
-      "github.id_rsa"
+      "github.id_rsa",
+      "bitbucket.id_rsa"
     ],
     "configs": {
       "github.com": {
@@ -14,10 +15,15 @@
         "hostname": "github.com",
         "identity_file": "github.id_rsa"
       },
-      "capistrano": {
+      "bitbucket.org": {
+        "user": "git",
+        "hostname": "bitbucket.org",
+        "identity_file": "bitbucket.id_rsa"
+      },
+      "localhost": {
         "user": "app",
         "hostname": "localhost",
-        "identity_file": "capistrano.id_rsa"
+        "identity_file": "localhost.id_rsa"
       }
     }
   },

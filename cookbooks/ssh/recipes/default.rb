@@ -17,9 +17,9 @@ directory "#{HOME_DIR}/.ssh" do
   owner USER_NAME
 end
 
-# appのlocalhostのcapistranoのキーペアをつくる
-bash "create capistrano key pair" do
-  key_name = "capistrano.id_rsa"
+# appのlocalhostのキーペアをつくる
+bash "create localhost key pair" do
+  key_name = "localhost.id_rsa"
   user USER_NAME
   flags "-e"
   not_if {File.exists? "#{HOME_DIR}/.ssh/#{key_name}"} # 冪等性の確保
