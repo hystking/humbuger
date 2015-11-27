@@ -41,6 +41,8 @@ bash "make tig" do
 
   code <<-EOH
     cd #{HOME_DIR}/tig
+    make configure
+    ./configure --prefix=#{HOME_DIR}
     make
     make install
   EOH
@@ -59,7 +61,8 @@ bash "make ag" do
 
   code <<-EOH
     cd #{HOME_DIR}/ag
-    ./build.sh
-    sudo make install
+    ./build.sh --prefix=#{HOME_DIR}
+    make
+    make install
   EOH
 end
