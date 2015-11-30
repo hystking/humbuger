@@ -19,10 +19,10 @@ package "pcre-devel"
 package "xz-devel"
 
 bash "groupinstall Development Tools" do
-  not_if {"which aclocal"} # 冪等性の確保
   user USER_NAME
   environment "HOME" => HOME_DIR
   flags "-e"
+  not_if "which aclocal", :user => USER_NAME # 冪等性の確保
   code <<-EOH
   sudo yum groupinstall "Development Tools" -y
   EOH
@@ -37,7 +37,7 @@ bash "make tig" do
   user USER_NAME
   environment "HOME" => HOME_DIR
   flags "-e"
-  not_if {"which tig"} # 冪等性の確保
+  not_if "ls #{HOME_DIR}/bin/tig", :user => USER_NAME # 冪等性の確保
 
   code <<-EOH
     cd #{HOME_DIR}/tig
@@ -57,7 +57,7 @@ bash "make ag" do
   user USER_NAME
   environment "HOME" => HOME_DIR
   flags "-e"
-  not_if {"which ag"} # 冪等性の確保
+  not_if "ls #{HOME_DIR}/bin/ag", :user => USER_NAME # 冪等性の確保
 
   code <<-EOH
     cd #{HOME_DIR}/ag
