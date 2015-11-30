@@ -13,3 +13,6 @@ service "mysqld" do
   action [:enable, :start]
 end
 
+link "/tmp/mysql.sock" do
+  to "/var/lib/mysql/mysql.sock"
+end
