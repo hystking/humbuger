@@ -7,7 +7,8 @@ server {
   server_name <%= @app["nginx"]["domains"].join " " %>;
 
   root <%= @app["nginx"]["public"] %>;
-  access_log  /var/log/nginx/<%= @app_name %>.log  main;
+  access_log /var/log/nginx/<%= @app_name %>.access.log main;
+  error_log /var/log/nginx/<%= @app_name %>.error.log warn;
   
   location / {
     <% if @app["nginx"]["basic"]%>
