@@ -17,6 +17,7 @@ package "vim-enhanced"
 package "vim-X11"
 package "pcre-devel"
 package "xz-devel"
+package "tmux"
 
 bash "groupinstall Development Tools" do
   user USER_NAME
