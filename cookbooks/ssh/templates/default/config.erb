@@ -1,8 +1,8 @@
 <% @configs.each do |host, config| %>
 Host <%= host %>
   User <%= config["user"] %>
-  HostName      <%= config["hostname"] %>
-  IdentityFile  ~/.ssh/<%= config["identity_file"] %>
+  HostName <%= config["hostname"] %>
+  IdentityFile ~/.ssh/<%= config["identity_file"] %>
   <% if config["proxy_command"] %>
   ProxyCommand <%= config["proxy_command"] %>
   <% end %>
