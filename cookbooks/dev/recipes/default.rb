@@ -31,7 +31,7 @@ end
 
 git "#{HOME_DIR}/tig" do
   user USER_NAME
-  repository "https://github.com/jonas/tig"
+  repository "git@github.com:jonas/tig.git"
 end
 
 bash "make tig" do
@@ -51,7 +51,7 @@ end
 
 git "#{HOME_DIR}/ag" do
   user USER_NAME
-  repository "https://github.com/ggreer/the_silver_searcher.git"
+  repository "git@github.com:ggreer/the_silver_searcher.git"
 end
 
 bash "make ag" do
