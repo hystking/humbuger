@@ -13,7 +13,12 @@ APP_HOME = "/home/#{APP_NAME}"
 DEVELOPERS = node[:local_accounts][:developers]
 
 # appユーザを追加
-user APP_NAME
+user APP_NAME do
+  shell '/bin/bash'
+  home "/home/#{APP_NAME}"
+  manage_home true
+  action :create
+end
 
 # 開発者を追加
 DEVELOPERS.each do |developer|
@@ -21,7 +26,12 @@ DEVELOPERS.each do |developer|
   developer_home = "/home/#{developer_name}"
 
   # 開発者を追加
-  user developer_name
+  user developer_name do
+    shell '/bin/bash'
+    home "/home/#{developer_name}"
+    manage_home true
+    action :create
+  end
 
   # 開発者の.sshをつくる
   directory "#{developer_home}/.ssh" do
