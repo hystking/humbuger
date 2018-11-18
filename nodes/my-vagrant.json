@@ -25,7 +25,10 @@
         "hostname": "localhost",
         "identity_file": "localhost.id_rsa"
       }
-    }
+    },
+    "known_hosts": [
+      "github.com"
+    ]
   },
 
   "deploys": {

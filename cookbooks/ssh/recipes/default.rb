@@ -48,3 +48,15 @@ template "#{HOME_DIR}/.ssh/config" do
   source "config.erb"
   variables configs: node[:ssh][:configs]
 end
+
+# known hosts を追加
+node[:ssh][:known_hosts].each do |hostname|
+  bash "add #{hostname} to known_hosts" do
+    user USER_NAME
+    flags "-e"
+    not_if "cat #{HOME_DIR}/.ssh/known_hosts | grep '#{hostname}'"
+    code <<-EOH
+      ssh-keyscan #{hostname} >> #{HOME_DIR}/.ssh/known_hosts
+    EOH
+  end
+end
